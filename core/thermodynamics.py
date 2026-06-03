@@ -1,3 +1,4 @@
+import alloy_db
 
 # for a binary solution compute the gibbs energy of each phase
 # given 2 free energy curves, construct a common tangent to find the ends of the tie line
@@ -17,4 +18,16 @@ def get_equilibrium_phases(system, T, x):
     # Returns: dict of {phase_name: phase_fraction} at a single (T, x) point
     # This is what Member B needs for nucleation driving force
 """
+
+def get_phase_energy(metal, phase, T): 
+    gibbs_base = 0
+    phase_db = alloy_db.data[metal][phase]
+    for g in phase_db["gibbs"]:
+        if g["t_min"] <= T < g["t_max"]:
+            gibbs_base = g["expression"](T)
+            break
+    
+    # add gibbs magnetic and gibbs pressure
+
+    return gibbs_base
 
