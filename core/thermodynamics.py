@@ -19,9 +19,9 @@ def get_equilibrium_phases(system, T, x):
     # This is what Member B needs for nucleation driving force
 """
 
-def get_phase_energy(metal, phase, T): 
+def get_pure_phase_energy(element, phase, T): 
     gibbs_base = 0
-    phase_db = alloy_db.data[metal][phase]
+    phase_db = alloy_db.data[element][phase]
     for g in phase_db["gibbs"]:
         if g["t_min"] <= T < g["t_max"]:
             gibbs_base = g["expression"](T)
@@ -31,3 +31,6 @@ def get_phase_energy(metal, phase, T):
 
     return gibbs_base
 
+
+def get_phase_energy(component1, component2, T, x):
+    return 0
